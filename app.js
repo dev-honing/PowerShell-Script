@@ -2,21 +2,25 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.use(express.urlencoded({ extended: true })); // POST 요청의 body를 파싱하기 위한 미들웨어 설정
-app.use(express.static('public')); // 정적 파일을 제공하기 위한 미들웨어 설정
+app.use(express.json()); // JSON 데이터 파싱을 위한 미들웨어 설정
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html'); // index.html 파일을 응답으로 보냄
+  res.status(200).send('요청이 성공했습니다.');
 });
 
-app.post('/login', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  console.log(`ID: ${username}`);
-  console.log(`PW: ${password}`);
-  // 여기서 로그인 로직을 추가할 수 있음
-  // ...
-  res.send('로그인 요청을 받았습니다.'); // 클라이언트에 응답을 보냄
+app.get('/notfound', (req, res) => {
+  res.status(404).send('요청한 페이지를 찾을 수 없습니다.');
+});
+
+app.post('/badrequest', (req, res) => {
+  // 잘못된 요청 처리
+  if (!req.body.username || !req.body.password) {
+    res.status(400).send('유효한 사용자 정보가 제공되지 않았습니다.');
+  } else {
+    // 유효한 요청 처리
+    // ...
+    res.status(200).send('요청이 성공적으로 처리되었습니다.');
+  }
 });
 
 app.listen(port, () => {
