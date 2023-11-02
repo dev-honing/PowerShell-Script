@@ -1,11 +1,13 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = 3000;
 
 app.use(express.json()); // JSON 데이터 파싱을 위한 미들웨어 설정
+app.use(express.static(path.join(__dirname, 'public'))); // 정적 파일 제공을 위한 미들웨어 설정
 
 app.get('/', (req, res) => {
-  res.status(200).send('요청이 성공했습니다.');
+  res.status(200).sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/notfound', (req, res) => {
