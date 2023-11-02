@@ -25,6 +25,8 @@ app.post('/login', (req, res) => {
   res.status(200).send('로그인 요청을 받았습니다.');
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
 });
+
+module.exports = server;
