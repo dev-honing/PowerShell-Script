@@ -1,3 +1,7 @@
+// 모듈 사용을 위해 다음 명령어로 필요한 패키지들을 설치:
+// npm install express
+// npm install path
+
 const express = require('express');
 const path = require('path');
 const app = express();
